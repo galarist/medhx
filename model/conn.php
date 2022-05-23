@@ -2,7 +2,7 @@
 require_once '../controller/checkinput.php';
 include '../controller/cors.php';
 $id = '';
-if (!empty($_SERVER['HTTPS'])) {
+if (isset($_SERVER['HTTPS'])) {
     $host = "s08be.syd5.hostingplatform.net.au";
     $user = "crisgala_galarist";
     $password = "Y[,-}%5.K+jU";
