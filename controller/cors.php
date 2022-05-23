@@ -8,7 +8,7 @@ $content = file_get_contents('php://input');
 //convert to stdclass object
 $data = json_decode($content, true);
 if (!empty($_SERVER['HTTPS'])) {
-    header('Access-Control-Allow-Origin: https://medhx.herokuapp.com');
+    header('Access-Control-Allow-Origin: https://medhx.netlify.app/');
 } else {
     header('Access-Control-Allow-Origin: http://localhost:1234');
 }
