@@ -9,13 +9,22 @@ $content = file_get_contents('php://input');
 $data = json_decode($content, true);
 if (!empty($_SERVER['HTTPS'])) {
     $allowed_domains = [
-        "https://medhx.herokuapp.com/",
-        "https://medhx.netlify.app/"
+        "https://medhx.herokuapp.com",
+        "https://medhx.netlify.app",
+        " http://localhost:1234"
     ];
 
     if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_domains)) {
         header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
     }
 } else {
-    header('Access-Control-Allow-Origin: http://localhost:1234');
+        $allowed_domains = [
+        "https://medhx.herokuapp.com",
+        "https://medhx.netlify.app",
+        " http://localhost:1234"
+    ];
+
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_domains)) {
+        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+    }
 }
