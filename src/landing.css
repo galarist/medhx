@@ -1,0 +1,9 @@
+.ion-padding {
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+  --padding-top: 0 !important;
+}
+
+body {
+    color: rosybrown !important
+}

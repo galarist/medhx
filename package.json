@@ -1,0 +1,42 @@
+{
+  "name": "medhx",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel --open",
+    "build": "parcel build",
+    "endpoint": "php -S localhost:4000 -t controller/",
+    "heroku-postbuild": "parcel build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.5.0",
+    "@parcel/transformer-webmanifest": "^2.5.0",
+    "buffer": "^6.0.3",
+    "parcel": "^2.5.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@hookform/error-message": "^2.0.0",
+    "@mui/material": "^5.7.0",
+    "axios": "^0.27.2",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.31.1",
+    "react-router-dom": "^6.3.0",
+    "web-vitals": "^2.1.4",
+    "workbox-core": "^5.1.4",
+    "workbox-expiration": "^5.1.4",
+    "workbox-precaching": "^5.1.4",
+    "workbox-routing": "^5.1.4",
+    "workbox-strategies": "^5.1.4"
+  }
+}
