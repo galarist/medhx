@@ -1,5 +1,6 @@
 <?php
-require '../model/conn.php';
+include 'cors.php';
+require __DIR__."/../model/conn.php";
 require 'ratelimiter.php';
 $method = $_SERVER['REQUEST_METHOD'];
 

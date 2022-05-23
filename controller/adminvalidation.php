@@ -1,5 +1,6 @@
 <?php
-include '../model/conn.php';
+include 'cors.php';
+require __DIR__."/../model/conn.php";
 require 'ratelimiter.php';
 require_once 'session.php';
 $token = '';
