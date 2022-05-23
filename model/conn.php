@@ -5,7 +5,7 @@ $id = '';
 if (!empty($_SERVER['HTTPS'])) {
     $host = "s08be.syd5.hostingplatform.net.au";
     $user = "crisgala_galarist";
-    $password = "d7GXbxI55^$0";
+    $password = "Y[,-}%5.K+jU";
     $dbname = "crisgala_medhx";
 } else {
     $host = "localhost";
