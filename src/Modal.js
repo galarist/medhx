@@ -23,7 +23,7 @@ const ModalPortal = ({ visible, toggle }) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:4000/adminvalidation.php',
+        url: 'https://medhx.herokuapp.com/controller/adminvalidation.php',
         headers: { 
           'Content-Type': 'application/json'
         },
