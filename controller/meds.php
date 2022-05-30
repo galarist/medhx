@@ -10,7 +10,7 @@ if (!$con) {
 /**
  * Check if token session exists
  */
-//if (Session::get('token') !== null) {
+if (Session::get('token') !== null) {
     $content = file_get_contents('php://input');
     //convert to stdclass object
     $data = json_decode($content, true);
@@ -67,6 +67,6 @@ if (!$con) {
     } else {
         echo mysqli_affected_rows($con);
     }
-//}
+}
 require 'log.php';
 $con->close();

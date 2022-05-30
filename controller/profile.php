@@ -10,7 +10,7 @@ if (!$con) {
 /**
  * Check if token session exists
  */
-//if (Session::get('token') !== null) {
+if (Session::get('token') !== null) {
     switch ($method) {
         case 'GET':
             $sql = "select * from users 
@@ -99,7 +99,7 @@ if (!$con) {
     } else {
         echo mysqli_affected_rows($con);
     }
-//}
+}
 require 'log.php';
 
 $con->close();
