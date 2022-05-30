@@ -32,12 +32,24 @@ const Profile = () => {
 		/** Getting profile information */
 		useEffect(()=> {
 			// Get profile info
-			const urlProfile = globeEndpointPath+'profile.php'
-				axios.get(urlProfile)
-				.then(result => {
-					setProfile((result.data));
+			const url = globeEndpointPath+'profile.php'
+			axios({
+					method: 'get',
+					url: url,
 				})
-		}, []);
+				.then(response => response.data)
+				.then((data) => {
+					setProfile((data));
+				})
+				.catch(function (error) {
+					/*if (error.response) {
+						console.log(error.response.data);
+						console.log(error.response.status);
+						console.log(error.response.headers);
+					}*/
+				});
+		// eslint-disable-next-line
+		}, [])
 		/** Getting reports information */
 		useEffect (() => {
 			// Get reports info
