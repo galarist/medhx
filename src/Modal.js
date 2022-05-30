@@ -8,6 +8,7 @@ import docs from './img/docs.svg';
 import signin from './img/signin.svg';
 import signup from './img/signup.svg';
 import axios from 'axios';
+import globeEndpointPath from "./GlobalVar";
 
 const ModalPortal = ({ visible, toggle }) => {
 	const [user, setUser] = useState()
@@ -23,7 +24,7 @@ const ModalPortal = ({ visible, toggle }) => {
       
       var config = {
         method: 'post',
-        url: 'https://medhx.herokuapp.com/controller/adminvalidation.php',
+        url: globeEndpointPath+'adminvalidation.php',
         headers: { 
           'Content-Type': 'application/json'
         },

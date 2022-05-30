@@ -1,11 +1,11 @@
 {
   "name": "medhx",
   "version": "1.0.0",
-  "description": "",
+  "description": "A medical based application",
   "type": "module",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel --open",
+    "start": "parcel --open & npm run endpoint",
     "build": "parcel build",
     "endpoint": "php -S localhost:4000 -t controller/",
     "heroku-postbuild": "parcel build",

@@ -3,10 +3,27 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import globeEndpointPath from "../GlobalVar";
 function Meds() {
+
+  async function successToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'New Data Has Been Set.';
+		toast.duration = 2000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+
+	async function failedToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'Something Went Wrong.';
+		toast.duration = 5000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+
   const protocol = (window.location.protocol === 'https') ? 'https://' : 'http://';
-  //creating IP state
-  const [ip, setIP] = useState('');
+
   const [meds, setMed] = useState([]);
   const [messages, setMessages] = useState([]);
   const {
@@ -19,32 +36,8 @@ function Meds() {
   const onSubmit = (data) => validate(data);
 
   useEffect(() => {
-    //creating function to load ip address from the API
-    const getData = async () => {
-      //const protocol = (window.location.protocol === 'http') ? 'https://' : 'http://';
-      const res = await axios({
-        method: 'get',
-        url: 'https://medhx.herokuapp.com/controller/ip.php',
-        dataType: "JSON",
-        //withCredentials: true,
-      })
-      if ((res.status = 200)) {
-        console.log(res.status + " = " + res.statusText);
-        console.log(res.data);
-        window.addEventListener('offline', (event) => {
-          setIP(localStorage.getItem('localhost'))
-        });
-        window.addEventListener('online', (event) => {
-          setIP(res.data)
-        });
-      }
-    }
-    getData();
-  }, [])
-
-  useEffect(() => {
     const fetchPost = async () => {
-      const url = 'https://medhx.herokuapp.com/controller/meds.php/'
+      const url = globeEndpointPath+'meds.php'
       const res = await axios.get(url)
       setMed(res.data)
     }
@@ -60,7 +53,7 @@ const validate = () => {
   ]);
   axios({
           method: 'post',
-          url: 'https://medhx.herokuapp.com/controller/adminvalidation.php/',
+          url: globeEndpointPath+'adminvalidation.php',
           data: data,
           config: {
               headers: {
@@ -79,8 +72,7 @@ const validate = () => {
        })
        .catch(function (response) {
          //handle error
-         alert('Something went wrong!')
-         console.log(response)
+        failedToats();
        });
 }
 
@@ -96,7 +88,7 @@ const validate = () => {
     
     var config = {
       method: 'post',
-      url: 'https://medhx.herokuapp.com/controller/meds.php',
+      url: globeEndpointPath+'meds.php',
       headers: { 
         'Content-Type': 'application/json'
       },
@@ -106,12 +98,11 @@ const validate = () => {
     axios(config)
       .then(function (response) {
         //handle success
-        alert('New Medicine Successfully Added.');
+        successToats();
       })
       .catch(function (response) {
         //handle error
-        alert('Something went wrong!')
-        console.log(response)
+        failedToats();
       });
   }
 
@@ -131,7 +122,7 @@ const validate = () => {
       })
       .then(result => {
         //.slice(0, 1000)
-        setDrugs((result.data.minConceptGroup.minConcept.slice(0, 30)));
+        setDrugs((result.data.minConceptGroup.minConcept.slice(0, 2000)));
         setLoad(true);
       })
       .catch(err => {
@@ -139,6 +130,73 @@ const validate = () => {
         setLoad(true)
       })
   }, []);
+
+  useEffect(() => {
+  // (A) FLAG FOR "ALREADY CLICKED".
+  var clicked = false;
+  // (B) FUNCTION - WILL ONLY RUN IF NOT CLICKED
+  function filterRecords() {
+    if (!clicked) {
+      // (B1) SET CLICKED TO TRUE
+      clicked = true;
+      let cards = document.querySelectorAll('.meds')
+      // (B2) DO YOUR PROCESSING HE
+      function liveSearch() {
+        if (searchInput) {
+          let search_query = document.getElementById("medName").value;
+          //Use innerText if all contents are visible
+          //Use textContent for including hidden elements
+          for (var i = 0; i < cards.length; i++) {
+            if (cards[i].textContent.toLowerCase()
+              .includes(search_query.toLowerCase())) {
+              cards[i].classList.remove("is-hidden");
+            } else {
+              cards[i].classList.add("is-hidden");
+              cancelSearch()
+            }
+          }
+        }
+      }
+      //A little delay
+      let typingTimer;
+      let typeInterval = 300;
+      let searchInput = document.getElementById('medName');
+      // Check if input exists
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          clearTimeout(typingTimer);
+          typingTimer = setTimeout(liveSearch, typeInterval);
+        });
+      }
+      setTimeout(function () {
+        liveSearch()
+      }, 300);
+      // (B3) RE-ENABLE AFTER PROCESSING IF YOU WANT
+      clicked = false;
+    }
+  }
+
+  function cancelSearch() {
+    if (!clicked) {
+      clicked = true;
+      let buttonClose = document.querySelector('.searchbar-clear-icon');
+      let cards = document.querySelectorAll('.meds');
+      if (buttonClose) {
+        buttonClose.addEventListener('touchstart', function (e) {
+          for (var i = 0; i < cards.length; i++) {
+            cards[i].classList.remove("is-hidden");
+          }
+        });
+      }
+      clicked = false;
+    }
+  }
+  // When updating the code
+  const filterBar = document.getElementById('medName');
+  if (filterBar) {
+    filterRecords()
+  }
+  })
 
   if (load) {
     return (
@@ -214,7 +272,6 @@ const validate = () => {
                     errors={errors}
                     name="doseErrorInput"
                     render={({ messages }) => {
-                      console.log("messages", messages);
                       return messages
                         ? Object.entries(messages).map(([type, message]) => (
                             <p key={type}>{message}</p>
@@ -248,7 +305,6 @@ const validate = () => {
                     errors={errors}
                     name="patientErrorInput"
                     render={({ messages }) => {
-                      console.log("messages", messages);
                       return messages
                         ? Object.entries(messages).map(([type, message]) => (
                             <p key={type}>{message}</p>
@@ -260,7 +316,7 @@ const validate = () => {
                     <ion-col>
                       <ion-item>
                         <div className="searchbar-input-container sc-ion-searchbar-md">
-                          <ion-label position="floating">Patient Ref ID</ion-label>
+                          <ion-label position="floating">Medicine Name</ion-label>
                           <ion-input {...register("medErrorInput", {
                           required: "This input is required.",
                           pattern: {
@@ -280,7 +336,6 @@ const validate = () => {
                     errors={errors}
                     name="medErrorInput"
                     render={({ messages }) => {
-                      console.log("messages", messages);
                       return messages
                         ? Object.entries(messages).map(([type, message]) => (
                             <p key={type}>{message}</p>
@@ -330,69 +385,5 @@ const validate = () => {
       </>
     );    
   }
-}
-// (A) FLAG FOR "ALREADY CLICKED".
-var clicked = false;
-// (B) FUNCTION - WILL ONLY RUN IF NOT CLICKED
-function filterRecords() {
-	if (!clicked) {
-		// (B1) SET CLICKED TO TRUE
-		clicked = true;
-		let cards = document.querySelectorAll('.meds')
-		// (B2) DO YOUR PROCESSING HE
-		function liveSearch() {
-			if (searchInput) {
-				let search_query = document.getElementById("medName").value;
-				//Use innerText if all contents are visible
-				//Use textContent for including hidden elements
-				for (var i = 0; i < cards.length; i++) {
-					if (cards[i].textContent.toLowerCase()
-						.includes(search_query.toLowerCase())) {
-						cards[i].classList.remove("is-hidden");
-					} else {
-						cards[i].classList.add("is-hidden");
-						cancelSearch()
-					}
-				}
-			}
-		}
-		//A little delay
-		let typingTimer;
-		let typeInterval = 300;
-		let searchInput = document.getElementById('medName');
-		// Check if input exists
-		if (searchInput) {
-			searchInput.addEventListener('input', () => {
-				clearTimeout(typingTimer);
-				typingTimer = setTimeout(liveSearch, typeInterval);
-			});
-		}
-		setTimeout(function () {
-			liveSearch()
-		}, 300);
-		// (B3) RE-ENABLE AFTER PROCESSING IF YOU WANT
-		clicked = false;
-	}
-}
-
-function cancelSearch() {
-	if (!clicked) {
-		clicked = true;
-		let buttonClose = document.querySelector('.searchbar-clear-icon');
-		let cards = document.querySelectorAll('.meds');
-		if (buttonClose) {
-			buttonClose.addEventListener('touchstart', function (e) {
-				for (var i = 0; i < cards.length; i++) {
-					cards[i].classList.remove("is-hidden");
-				}
-			});
-		}
-		clicked = false;
-	}
-}
-// When updating the code
-const filterBar = document.getElementById('medName');
-if (filterBar) {
-	filterRecords()
 }
 export default Meds;

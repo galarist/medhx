@@ -2,14 +2,15 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import globeEndpointPath from "../GlobalVar";
 
 var clicked;
-function hhFunction(e) {    
+function hhFunction(e) {  
+  
   if (!clicked) {
     clicked = true;
     var calendar = document.querySelector('ion-datetime');
     if (calendar) {
-      //console.log(calendar.value);
     }
     clicked = false;
   }
@@ -27,6 +28,29 @@ window.onload = (event) => {
 };
 
 export default function MyDocs () {
+  async function successToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'New Data Has Been Set.';
+		toast.duration = 2000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+
+  async function emptyToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'Please fill all input!';
+		toast.duration = 2000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+
+	async function failedToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'Something Went Wrong.';
+		toast.duration = 5000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
   const {
     register,
     formState: { errors },
@@ -47,7 +71,7 @@ const validate = () => {
   ]);
   axios({
           method: 'post',
-          url: 'https://medhx.herokuapp.com/controller/adminvalidation.php/',
+          url: globeEndpointPath+'adminvalidation.php',
           data: data,
           config: {
               headers: {
@@ -66,17 +90,15 @@ const validate = () => {
        })
        .catch(function (response) {
          //handle error
-         alert('Something went wrong!')
-         console.log(response)
+        failedToats();
        });
 }
 
   useEffect(() => {
-    const url = 'https://medhx.herokuapp.com/controller/appt.php/'
+    const url = globeEndpointPath+'appt.php'
     axios.get(url).then(response => response.data)
     .then((data) => {
       //setState({ docs: data })
-      //console.table(this.state.docs)
       setDocs(data)
      })
   },[]) 
@@ -94,7 +116,7 @@ const validate = () => {
     
     var config = {
       method: 'post',
-      url: 'https://medhx.herokuapp.com/controller/appt.php',
+      url: globeEndpointPath+'appt.php',
       headers: { 
         'Content-Type': 'application/json'
       },
@@ -104,16 +126,15 @@ const validate = () => {
       .then(function (response) {
         //handle success
         if (response.status === 201) {
-          alert('New Appointment Successfully Added.');
+          successToats();
         } 
         if (response.status === 500) {
-          alert('Please fill all input!')
+          emptyToats()
         }
       })
       .catch(function (response) {
         //handle error
-        alert('Something went wrong!')
-        console.log(response)
+        failedToats()
       });
   }
 
@@ -183,7 +204,6 @@ const validate = () => {
         errors={errors}
         name="multipleErrorInput"
         render={({ messages }) => {
-          console.log("messages", messages);
           return messages
             ? Object.entries(messages).map(([type, message]) => (
                 <p key={type}>{message}</p>
@@ -218,7 +238,6 @@ const validate = () => {
         errors={errors}
         name="patientErrorInput"
         render={({ messages }) => {
-          console.log("messages", messages);
           return messages
             ? Object.entries(messages).map(([type, message]) => (
                 <p key={type}>{message}</p>
@@ -239,22 +258,12 @@ const validate = () => {
             <ion-card key={index}>
             <ion-label>
               <ion-card-subtitle>Location: <h3>{doc.location}</h3></ion-card-subtitle>
-              <ion-card-subtitle>Date: <h3>{doc.date}</h3></ion-card-subtitle>              
+              <ion-card-subtitle>Date: <h3>{doc.date}</h3></ion-card-subtitle>     
+            </ion-label>             
               <div className="btnWrapper">
-                <ion-button color="danger">Cancel <ion-icon name="close"></ion-icon></ion-button> 
-              </div>     
-            </ion-label>
+                <ion-button color="danger" size="small">Cancel <ion-icon name="close"></ion-icon></ion-button> 
+              </div> 
           </ion-card>
-          /*<ion-item class="box" href="#">
-              <ion-label>
-                <ion-card-subtitle>{doc.location}</ion-card-subtitle>
-                <ion-card-subtitle>{doc.date}</ion-card-subtitle>
-              </ion-label>
-              <div className="btnWrapper">
-              <ion-button color="danger">Cancel <ion-icon name="close"></ion-icon></ion-button> 
-              </div>                     
-              
-          </ion-item>*/
           ))}
           </ion-item-group>
         </ion-content>

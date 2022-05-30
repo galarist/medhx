@@ -6,6 +6,19 @@
   --maxwidth: 540px;
   --background: #161625;
   /*--ion-toolbar-background: #5065a8;*/
+  --ion-color-step-800: var(--dull) !important;
+}
+
+#guide {
+  height: 540px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px 50px;
+}
+
+#guide footer {
+  padding: 0 !important;
 }
 
 .ion-padding {
@@ -120,6 +133,7 @@ ion-header.ios.header-ios.header-translucent.header-collapse-none.header-translu
   --ion-color-step-550: var(--ion-background-color) !important;
   --ion-color-step-600: var(--ion-background-color) !important;
   --ion-color-step-650: var(--ion-background-color) !important;
+  --ion-color-step-800: var(--dull) !important;
   --ion-color-step-850: var(--ion-background-color) !important;
   --ion-color-step-900: var(--ion-background-color) !important;
   --ion-background-color: ;
@@ -138,12 +152,14 @@ hr {
   border-radius: 6px;
 }
 
-form, .css-1oms8u8, .css-1p5q5e5-MuiStack-root {
+form,
+.css-1oms8u8,
+.css-1p5q5e5-MuiStack-root {
   text-align: center !important;
 }
 
 .css-1p5q5e5-MuiStack-root {
-    margin: 0 auto !important;
+  margin: 0 auto !important;
 }
 
 #loader center {

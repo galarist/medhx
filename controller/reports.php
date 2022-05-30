@@ -14,7 +14,7 @@ $data = json_decode($content, true);
 /**
  * Check if token session exists
  */
-if ((Session::get('token')) !== null) {
+//if ((Session::get('token')) !== null) {
     switch ($method) {
         case 'GET':
             $sql = "select * from reports";
@@ -88,7 +88,7 @@ if ((Session::get('token')) !== null) {
             }
             break;
     }
-}
+//}
 require 'log.php';
 
 $con->close();

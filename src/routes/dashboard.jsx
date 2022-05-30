@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Profile from "./profile";
+import globeEndpointPath from "../GlobalVar";
 
 const Dashboard = () => {
     const [admin, setAdmin] = useState([])
@@ -22,7 +23,7 @@ const handleSubmit = () => {
     }]);
     axios({
             method: 'post',
-            url: 'https://medhx.herokuapp.com/controller/admin.php',
+            url: globeEndpointPath+'admin.php',
             data: data,
             config: {
                 headers: {
@@ -67,7 +68,7 @@ const handleSubmit = () => {
           ]);
         axios({
                 method: 'post',
-                url: 'https://medhx.herokuapp.com/controller/adminvalidation.php',
+                url: globeEndpointPath+'adminvalidation.php',
                 data: data,
                 config: {
                     headers: {

@@ -1,52 +1,67 @@
-# How to setup and configure Web Service
+# Introduction - MEDHX
 
-This project is using MARP stack - MySQL, Axios, ReactJS (with Ionicframework), and PHP
+A medical based PWA where the doctors and patients can interact with eachother online. With this application the users will be able to send and receive important information such as appointments, medical records, and medications (including dose). 
+Doctors can manage their patients medcation(s), appointment(s) and medical report(s). 
+Patients can view their medical history follow medications and see the upcoming and past appointments.
 
-## Getting Started
+# Built With
 
-### Download project
+Front-End:
+* ReactJS v17 - Hooks
+* ES6
+* Ionic Framweork
+* Ionic Icons
+* Mui Framework
 
-https://github.com/galarist/medhx/archive/refs/heads/master.zip
+Middleware:
+* Axios
+* JSON
 
-### Extract
+Back-End:
+* PHP 8
+* MySQL
 
-Extract the folder into a desired location.
-Open the main master folder in a terminal then follow the guide below.
+Security:
+* CSRF
+* Hash bcrypt
 
-### Inside the project folder will install all the dependecies from package.json.
+Extra:
+* With ❤️
+
+# Roadmap
+
+- [x] Scroll to the top upon clicking on the edit button - 30/06/22
+- [x] Use toast instead alerts after the login - 30/06/22
+- [x] Filter function in reports and users - 30/06/22
+- [ ] Finish the remaining buttons functionality - 30/06/22
+- [ ] Reduce JavaScript code - 5/07/2022
+- [ ] Fetch data without page reload - 10/07/22
+- [ ] Form guide with more detailed explanations - 10/07/22
+- [ ] Add Service Worker to the Parcel project - 20/07/22
+
+# Getting Started
+
+## 1. Install packages
 
 ```
 npm install
 ```
 
-### Import medhx_exported.sql file into the database using medhx database:
+<!--## 4. Import database
 
-Create a user `admin` with password `admin` that has access to the `medhx` table via `localhost`
+- Import medhx_exported.sql file into the database using medhx database:
 
-### For the server only (back-end), Run the php server in port 4000:
+- Create a user `admin` with password `admin` that has access to the `medhx` table via `localhost`-->
 
-```
-php -S localhost:4000 -t controller/
-```
+## 2. Install PHP 8
 
-or
-
-```
-php -S 127.0.0.1:4000 -t controller/
-```
-
-But I have combined the back-end and front-end script together so it makes things easier.
-
-### Open a new terminal and run the following code to start the client side,
-### The back-end and the client forget together
+## 3. Run The App
 
 ```
 npm start
 ```
 
-Runs the app in the development mode.
-Open [http://localhost:1234](http://localhost:1234) to view it in your browser (usually opens automatically).
-
+<!--
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -117,3 +132,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-->

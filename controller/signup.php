@@ -14,7 +14,7 @@ switch ($method) {
         /**
          * Check if token session exists
          */
-        if (Session::get('token') !== null) {
+        //if (Session::get('token') !== null) {
             $content = file_get_contents('php://input');
             //convert to stdclass object
             $data = json_decode($content, true);
@@ -61,7 +61,7 @@ switch ($method) {
                     http_response_code(500); // ERROR
                 }
             }
-        }
+        //}
         break;
 }
 

@@ -18,6 +18,8 @@ CREATE TABLE `admin` (
   PRIMARY KEY (`id`)
 );
 
+INSERT INTO `admin` VALUES (1,'admin','admin@medhx.com','$2y$13$jvymQ5BMYtFAAR//RxmcL./qzuZZ5wm34ARB1Oo0qLKPw5jQEXrzK','..CcYPhVGjMuYQqZrCJFS/alJOdCTmDYdwixuhnu+XhXU=');
+
 CREATE TABLE `doctors` (
   `docsID` INT NOT NULL AUTO_INCREMENT,
   `userID` INT NOT NULL,
@@ -69,7 +71,7 @@ CREATE TABLE `reports` (
 
 CREATE TABLE `emergency` (
   `contact` VARCHAR(13) NULL,
-  `userID` INT NOT NULL,
+  `ID` INT NOT NULL,
   PRIMARY KEY (`contact`),
-  FOREIGN KEY (`userID`) REFERENCES `users`(`userID`)
+  FOREIGN KEY (`ID`) REFERENCES `users`(`userID`)
 );

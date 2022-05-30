@@ -2,8 +2,22 @@ import React from "react";
 import axios from 'axios'
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-
+import globeEndpointPath from "../GlobalVar";
 function NewPatient() {
+  async function successToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'New Data Has Been Set.';
+		toast.duration = 2000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+  async function failedToats() {
+		const toast = document.createElement('ion-toast');
+		toast.message = 'Patient already exists! \nCheck either Reference number or email!';
+		toast.duration = 5000;
+		document.body.appendChild(toast);
+		return toast.present();
+	}
   const {
     register,
     formState: { errors },
@@ -22,7 +36,7 @@ const validate = () => {
   ]);
   axios({
           method: 'post',
-          url: 'https://medhx.herokuapp.com/controller/adminvalidation.php/',
+          url: globeEndpointPath+'adminvalidation.php',
           data: data,
           config: {
               headers: {
@@ -41,8 +55,7 @@ const validate = () => {
        })
        .catch(function (response) {
          //handle error
-         alert('Something went wrong!')
-         console.log(response)
+         failedToats();
        });
 }
 
@@ -57,22 +70,21 @@ const validate = () => {
     ]);
     axios({
       method: 'post',
-      url: 'https://medhx.herokuapp.com/controller/signup.php/',
+      url: globeEndpointPath+'signup.php',
       data: data,
       config: { headers: { 'Content-Type': 'application/json' } }
     })
       .then(function (response) {
         //handle success
-        console.log(response.data)
         if (response.status === 201) {
-          alert('New Contact Successfully Added.');
+          successToats();
         } else if (response.status === 200) {
-          alert('Patient already exists! \nCheck either Reference number or email!')
+          failedToats();
         }
       })
       .catch(function (response) {
         //handle error
-        console.log(response)
+        failedToats();
       });
   }
 
@@ -103,7 +115,6 @@ const validate = () => {
       errors={errors}
       name="nameErrorInput"
       render={({ messages }) => {
-        console.log("messages", messages);
         return messages
           ? Object.entries(messages).map(([type, message]) => (
               <p key={type}>{message}</p>
@@ -133,7 +144,6 @@ const validate = () => {
       errors={errors}
       name="emailErrorInput"
       render={({ messages }) => {
-        console.log("messages", messages);
         return messages
           ? Object.entries(messages).map(([type, message]) => (
               <p key={type}>{message}</p>
@@ -167,7 +177,6 @@ const validate = () => {
       errors={errors}
       name="patientErrorInput"
       render={({ messages }) => {
-        console.log("messages", messages);
         return messages
           ? Object.entries(messages).map(([type, message]) => (
               <p key={type}>{message}</p>
@@ -177,7 +186,7 @@ const validate = () => {
     />
     <ion-row>
     <div className="btnWrapper">
-      <ion-button type="submit" color="primary">New Patient</ion-button>
+      <ion-button type="submit" color="primary">Add Patient</ion-button>
     </div>
     </ion-row>
     </ion-grid>

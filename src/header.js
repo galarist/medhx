@@ -39,7 +39,7 @@ const Header = () => {
             {/** Checks if admin is logged in */}
             {admin ? (<ion-icon name="log-out" onClick={logOut}></ion-icon>) : (<ion-icon name="log-in" onClick={dashboard}></ion-icon>)}
             <ion-icon className="modal_opener" onClick={switchTheme} name="sunny"></ion-icon>
-            <Link to="/" replace><ion-icon name="help-circle"></ion-icon></Link>
+            <Link to="/tutorial"><ion-icon name="help-circle"></ion-icon></Link>
             {/** Checks if admin is logged in */}
             {admin ? (<ion-icon className="modal_opener" onClick={toggle} name="menu"></ion-icon>) : ("")}
           </div>

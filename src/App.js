@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import './main.css'
 import axios from 'axios';
 import Header from './header';
 import Dashboard from './routes/dashboard';
@@ -7,8 +8,8 @@ import LandingPage from './routes';
 import NewPatient from './routes/signup';
 import MyDocs from './routes/docs';
 import Meds from './routes/meds';
-import './main.css'
-import { useEffect } from 'react';
+import Guide from './routes/guide';
+import globeEndpointPath from './GlobalVar';
 /**
  * Checking if token is exists
  */
@@ -26,14 +27,14 @@ const App = () => {
     const sendGetRequest = async () => {
       axios({
         method: "get",
-        url: "https://medhx.herokuapp.com/controller/ip.php",
+        url: globeEndpointPath+"ip.php",
         dataType: "JSON",
       })
       .then((response) => {
         localStorage.setItem('myIP', response.data);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
     }
     localStorage.setItem("localhost", "127.0.0.1");
@@ -62,13 +63,8 @@ const App = () => {
       <Header />
       <Routes>
         <Route index element={<LandingPage />} />
-        <Route path="landing" element={<LandingPage />} />
-        <Route
-          path="dashboard"
-          element={
-              <Dashboard />
-          }
-        />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="tutorial" element={<Guide />} />
         <Route
           path="meds"
           element={

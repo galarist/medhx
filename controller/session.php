@@ -1,5 +1,4 @@
 <?php
-//include 'ratelimiter.php';
 class Session {
     public static function set($key, $value)
     {
